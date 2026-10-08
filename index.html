@@ -1,0 +1,297 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAYSA - Volleyball Athlete & Championship Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for Skills Radar -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#FF5722',
+                            yellow: '#FFC107',
+                            dark: '#0B0F19',
+                            card: '#1E293B',
+                            cyan: '#06B6D4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #060913;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .heading-font {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glow-orange {
+            box-shadow: 0 0 30px rgba(255, 87, 34, 0.4);
+        }
+        .glow-gold {
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.4);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF5722 0%, #FFC107 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(26, 36, 56, 0.65);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 87, 34, 0.15);
+        }
+        .court-pattern {
+            background: radial-gradient(circle at center, rgba(255, 87, 34, 0.18) 0%, rgba(6, 9, 19, 0.98) 85%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060913;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff5722;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-orange-500 selection:text-white">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-600 via-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg transform group-hover:rotate-12 transition-transform">
+                    <i class="fa-solid fa-volleyball"></i>
+                </div>
+                <div>
+                    <span class="heading-font text-2xl font-black tracking-wider text-white">RAYSA<span class="text-orange-500">.</span></span>
+                    <span class="block text-[10px] uppercase tracking-widest text-orange-400 font-extrabold">Volleyball Athlete</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="#about" class="hover:text-orange-400 transition-colors">Profil</a>
+                <a href="#trophies" class="hover:text-orange-400 transition-colors">Lemari Tropi</a>
+                <a href="#attributes" class="hover:text-orange-400 transition-colors">Atribut Player</a>
+                <a href="#court" class="hover:text-orange-400 transition-colors">Zona Lapangan</a>
+                <a href="#minigame" class="hover:text-orange-400 transition-colors">Spike Game</a>
+                <a href="#contact" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold hover:shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i> Ajak Sparring
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl p-2 focus:outline-none">
+                <i class="fa-solid fa-bars" id="menuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-slate-900/95 border-b border-slate-800 px-6 pt-3 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-slate-300 hover:text-orange-400 font-medium">Profil Raysa</a>
+            <a href="#trophies" class="block py-2 text-slate-300 hover:text-orange-400 font-medium">Lemari Tropi & Prestasi</a>
+            <a href="#attributes" class="block py-2 text-slate-300 hover:text-orange-400 font-medium">Atribut & Skill</a>
+            <a href="#court" class="block py-2 text-slate-300 hover:text-orange-400 font-medium">Zona Lapangan</a>
+            <a href="#minigame" class="block py-2 text-slate-300 hover:text-orange-400 font-medium">Spike Precision Game</a>
+            <a href="#contact" class="block text-center py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-black">Ajak Sparring / Undangan</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-44 lg:pb-32 overflow-hidden court-pattern">
+        <!-- Decorative grid lines -->
+        <div class="absolute inset-0 bg-[radial-gradient(#ff5722_1px,transparent_1px)] [background-size:36px_36px] opacity-15"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Information -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-400 text-xs sm:text-sm font-bold tracking-wide">
+                        <i class="fa-solid fa-volleyball animate-spin" style="animation-duration: 9s;"></i>
+                        <span>PASSIONATE VOLLEYBALL SPIKER & ATHLETE</span>
+                    </div>
+
+                    <h1 class="heading-font text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-tight">
+                        HALO, SAYA <br/>
+                        <span class="gradient-text">RAYSA</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Pemain bola voli penuh energi dan dedikasi tinggi. Spesialis <strong class="text-amber-400 font-semibold">Outside Hitter & Spiker Utama</strong> dengan lompatan tinggi, smash tajam menembus blok, serta koleksi <span class="text-orange-400 font-bold">tropi kejuaraan daerah dan turnamen antar klub</span>!
+                    </p>
+
+                    <!-- CTA Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#trophies" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-black text-base glow-orange hover:opacity-95 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                            <i class="fa-solid fa-trophy text-lg"></i>
+                            Lihat Lemari Tropi
+                        </a>
+                        <a href="#minigame" class="px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-base transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad text-orange-400"></i>
+                            Coba Game Smash Voli
+                        </a>
+                    </div>
+
+                    <!-- Statistics Highlights -->
+                    <div class="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+                            <div class="heading-font text-3xl sm:text-4xl font-black text-amber-400">14+</div>
+                            <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider mt-1">Tropi & Medali</div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+                            <div class="heading-font text-3xl sm:text-4xl font-black text-orange-500">90+</div>
+                            <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider mt-1">Laga Resmi</div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+                            <div class="heading-font text-3xl sm:text-4xl font-black text-cyan-400"> MVP </div>
+                            <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider mt-1">Pemain Terbaik</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Visual Player Card -->
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-md">
+                        <!-- Glow effect backdrops -->
+                        <div class="absolute -top-6 -left-6 w-72 h-72 bg-orange-600/30 rounded-full blur-3xl"></div>
+                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-amber-500/20 rounded-full blur-3xl"></div>
+
+                        <div class="relative rounded-3xl glass-panel p-6 border border-slate-700/80 text-center shadow-2xl overflow-hidden group">
+                            <div class="absolute top-4 right-4 bg-orange-500 text-slate-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider">
+                                Spiker #07
+                            </div>
+
+                            <div class="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-full bg-gradient-to-b from-orange-500/30 to-slate-900 p-2 my-4 relative">
+                                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden border-2 border-orange-500/60 shadow-inner">
+                                    <i class="fa-solid fa-person-running text-8xl text-orange-400 group-hover:scale-110 transition-transform duration-500"></i>
+                                </div>
+                                <div class="absolute bottom-2 right-2 bg-amber-400 text-slate-950 p-3.5 rounded-full shadow-lg">
+                                    <i class="fa-solid fa-volleyball text-2xl animate-bounce"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="heading-font text-2xl font-black text-white tracking-wide">RAYSA ATHLETE</h3>
+                            <p class="text-orange-400 text-xs font-bold uppercase tracking-widest mt-1">Outside Hitter & Jump Server</p>
+
+                            <div class="mt-6 flex flex-wrap justify-center gap-2">
+                                <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-orange-300 font-bold border border-slate-700">Power Spike</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-amber-300 font-bold border border-slate-700">Topspin Serve</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-cyan-300 font-bold border border-slate-700">Block Timing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-slate-900/60 border-y border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-orange-500 text-xs sm:text-sm font-bold uppercase tracking-widest"><i class="fa-solid fa-user-ninja mr-1"></i> PROFIL ATLET</span>
+                <h2 class="heading-font text-3xl sm:text-5xl font-black text-white mt-2">Kisah & Semangat Voli Raysa</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">Didedikasikan untuk perjuangan, keringat, dan kecintaan pada setiap pukulan bola voli.</p>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-orange-500/50 transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/15 text-orange-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-orange-500 group-hover:text-slate-950 transition-colors">
+                        <i class="fa-solid fa-heart-circle-bolt"></i>
+                    </div>
+                    <h3 class="heading-font text-xl font-bold text-white mb-3">Passion Tanpa Batas</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Bola voli adalah gairah utama Raysa. Suara sorakan penonton, detak ritme servis, dan pukulan spike yang menembus lapangan adalah dorongan energi setiap hari.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-amber-500/50 transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="heading-font text-xl font-bold text-white mb-3">Koleksi Kejuaraan</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Bertanding di turnamen sekolah, klan, liga antar klub, hingga kejuaraan tingkat kota. Membawa pulang tropi Juara 1, Runner-up, serta gelar Best Spiker (MVP).
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-panel p-8 rounded-3xl border border-slate-800 hover:border-cyan-500/50 transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <h3 class="heading-font text-xl font-bold text-white mb-3">Kekuatan Tim & Strategi</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Selalu siap berkomunikasi aktif, memberikan dukungan moral saat poin krusial, dan mengeksekusi taktik rotasi dari pelatih dengan disiplin tinggi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trophies" class="py-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-widest"><i class="fa-solid fa-award mr-1"></i> LEMARI PRESTASI</span>
+                <h2 class="heading-font text-3xl sm:text-5xl font-black text-white mt-2">Tropi & Kejuaraan Voli Raysa</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">Bukti kerja keras, latihan disiplin, dan kemenangan manis di atas lapangan.</p>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Trophy Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterTrophies('all', this)" class="trophy-filter-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-orange-500 text-slate-950 shadow-lg transition-all">Semua Tropi (14)</button>
+                <button onclick="filterTrophies('juara1', this)" class="trophy-filter-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all">Juara 1 🥇</button>
+                <button onclick="filterTrophies('mvp', this)" class="trophy-filter-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all">MVP / Best Player ⭐</button>
+                <button onclick="filterTrophies('regional', this)" class="trophy-filter-btn px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all">Tingkat Regional 🏆</button>
+            </div>
+
+            <!-- Trophy Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="trophyGrid">
+                
+                <!-- Trophy Item 1 -->
+                <div class="trophy-card juara1 regional glass-panel rounded-3xl p-6 border border-slate-800 hover:border-amber-500/60 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="h-48 rounded-2xl bg-gradient-to-br from-amber-500/25 via-slate-900 to-slate-950 flex items-center justify-center relative overflow-hidden mb-6 border border-amber-500/20">
+                        <i class="fa-solid fa-trophy text-7xl text-amber-400 drop-shadow-[0_0_20px_rgba(255,193,7,0.6)] transform group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute top-3 right-3 bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-1 rounded-full uppercase">JUARA 1 🥇</span>
+                    </div>
+                    <div class="text-xs text-orange-400 font-bold mb-1"><i class="fa-solid fa-calendar-days mr-1"></i> Turnamen Voli Antar Club 2024</div>
+                    <h3 class="heading-font text-xl font-bold text-white group-hover:text-amber-400 transition-colors">Juara Utama Voli Cup Regional</h3>
+                    <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+                        Mengarahkan spike penentu di set ke-5 yang membawa tim meraih piala juara 1 tanpa terkalahkan.
+                    </p>
+                    <button onclick="showTrophyDetail('Juara Utama Voli Cup Regional', '2024', 'Juara 1 Utama', 'Kemenangan luar biasa melalui pertarungan 5 set sengit. Raysa menyumbangkan 24 poin dari smash tajam dia
